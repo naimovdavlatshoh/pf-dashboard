@@ -1,17 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Button,
     Dialog,
     DialogHeader,
     DialogBody,
     DialogFooter,
+    Input,
 } from "@material-tailwind/react";
 import { Bolt } from "lucide-react";
+import { Toaster, toast } from "react-hot-toast";
+import { PostDataToken, PutDataToken } from "../..";
 
-export function EditSertification() {
+export function EditSertification({ changeStatus, certificate }) {
     const [open, setOpen] = React.useState(false);
+    const [name, setName] = useState(certificate.name);
+    // const [nameru, setNameru] = useState("");
+    // const [nameen, setNameen] = useState("");
+    const [img, setImg] = useState(null);
 
     const handleOpen = () => setOpen(!open);
+
+    const handleSubmit = async () => {
+        const formData = new FormData();
+
+        formData.append("image", img);
+        formData.append("name", name);
+        if (!name) {
+            handleOpen();
+            toast.error("Заполните все поля.");
+        } else {
+            PutDataToken(`certificates/${certificate.id}/`, formData)
+                .then((res) => {
+                    if (res.data && res.status == 200) {
+                        toast.success("Сертификат добавлена");
+                        changeStatus();
+                        handleOpen();
+                    } else {
+                        toast.error("Сертификат добавить не удалось");
+                        changeStatus();
+                        handleOpen();
+                    }
+                })
+                .catch((err) => {
+                    toast.error("Сертификат добавить не удалось");
+                    changeStatus();
+                    handleOpen();
+                });
+        }
+    };
 
     return (
         <>
@@ -20,8 +56,9 @@ export function EditSertification() {
                 variant="outlined"
                 className="flex gap-2 items-center h-[40px] px-2"
             >
-                <Bolt /> O'zgartirish
+                <Bolt /> Обновить
             </Button>
+            <Toaster position="top-center" />
             <Dialog
                 open={open}
                 handler={handleOpen}
@@ -30,8 +67,22 @@ export function EditSertification() {
                     unmount: { scale: 0.9, y: -100 },
                 }}
             >
-                <DialogHeader>Sertifikat o'zgartirish</DialogHeader>
-                <DialogBody></DialogBody>
+                <DialogHeader>Обновление сертификата</DialogHeader>
+                <DialogBody>
+                    <div className="flex flex-col gap-3">
+                        <input
+                            type="file"
+                            accept="image/*"
+                            className="block w-full text-sm text-gray-500
+               file:mr-4 file:py-2 file:px-4
+               file:rounded-full file:border-0
+               file:text-sm file:font-semibold
+               file:bg-blue-50 file:text-blue-700
+               hover:file:bg-blue-100"
+                            onChange={(e) => setImg(e.target.files[0])}
+                        />
+                    </div>
+                </DialogBody>
                 <DialogFooter>
                     <Button
                         variant="text"
@@ -39,10 +90,10 @@ export function EditSertification() {
                         onClick={handleOpen}
                         className="mr-1"
                     >
-                        <span>Yopish</span>
+                        <span>Закрыть</span>
                     </Button>
-                    <Button variant="gradient" onClick={handleOpen}>
-                        <span>Tasdiqlash</span>
+                    <Button variant="gradient" onClick={handleSubmit}>
+                        <span>Подтверждение</span>
                     </Button>
                 </DialogFooter>
             </Dialog>

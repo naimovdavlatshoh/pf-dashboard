@@ -10,11 +10,19 @@ import {
     Typography,
 } from "@material-tailwind/react";
 import { CircleX, ListFilterPlus } from "lucide-react";
+import { DeleteData } from "..";
 
-export function DeleteContainer() {
+export function DeleteContainer({ url, changeStatus }) {
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => setOpen(!open);
+
+    const handleConfirm = () => {
+        DeleteData(url).then(() => {
+            changeStatus();
+            setOpen(false);
+        });
+    };
 
     return (
         <>
@@ -26,14 +34,14 @@ export function DeleteContainer() {
                 className="ml-2 flex gap-2 items-center h-[40px]"
             >
                 <CircleX />
-                Delete
+                удалить
             </Button>
             <Dialog open={open} size="xs" handler={handleOpen}>
                 <div className="flex items-center justify-between">
                     <DialogHeader className="flex flex-col items-start">
                         {" "}
                         <Typography className="mb-1" variant="h4">
-                            O'chirishni aniq hoxlaysizmi
+                            Вы уверены, что хотите удалить?
                         </Typography>
                     </DialogHeader>
                     <svg
@@ -53,7 +61,7 @@ export function DeleteContainer() {
                 <DialogBody></DialogBody>
                 <DialogFooter className="space-x-2">
                     <Button variant="gradient" color="red" onClick={handleOpen}>
-                        <span>O'chirish</span>
+                        <span onClick={handleConfirm}>удалить</span>
                     </Button>
                 </DialogFooter>
             </Dialog>

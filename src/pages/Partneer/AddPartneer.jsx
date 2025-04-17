@@ -1,17 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Button,
     Dialog,
     DialogHeader,
     DialogBody,
     DialogFooter,
+    Input,
 } from "@material-tailwind/react";
 import { ListFilterPlus } from "lucide-react";
+import { Toaster, toast } from "react-hot-toast";
+import { PostDataToken } from "../..";
 
-export function AddPartneer() {
+export function AddPartneer({ changeStatus }) {
     const [open, setOpen] = React.useState(false);
+    const [name, setName] = useState("");
+    const [img, setImg] = useState(null);
 
     const handleOpen = () => setOpen(!open);
+
+    const handleSubmit = async () => {
+        const formData = new FormData();
+
+        formData.append("image", img);
+        formData.append("name", "partneer");
+        if (!name || !img) {
+            handleOpen();
+            toast.error("Заполните все поля.");
+        } else {
+            PostDataToken("partner/for/admin/", formData)
+                .then((res) => {
+                    if ((res.data && res.status == 200) || res.status == 201) {
+                        toast.success("Партнер добавлена");
+                        changeStatus();
+                        handleOpen();
+                    } else {
+                        toast.error("Партнер добавить не удалось");
+                        changeStatus();
+                        handleOpen();
+                    }
+                })
+                .catch((err) => {
+                    toast.error("Партнер добавить не удалось");
+                    changeStatus();
+                    handleOpen();
+                });
+        }
+    };
 
     return (
         <>
@@ -20,8 +54,9 @@ export function AddPartneer() {
                 variant="gradient"
                 className="flex items-center gap-3"
             >
-                <ListFilterPlus /> Qo'shish
+                <ListFilterPlus /> Добавить
             </Button>
+            <Toaster position="top-center" />
             <Dialog
                 open={open}
                 handler={handleOpen}
@@ -30,8 +65,22 @@ export function AddPartneer() {
                     unmount: { scale: 0.9, y: -100 },
                 }}
             >
-                <DialogHeader>Partnyor qo'shish</DialogHeader>
-                <DialogBody></DialogBody>
+                <DialogHeader>Добавить партнер</DialogHeader>
+                <DialogBody>
+                    <div className="flex flex-col gap-3">
+                        <input
+                            type="file"
+                            accept="image/*"
+                            className="block w-full text-sm text-gray-500
+               file:mr-4 file:py-2 file:px-4
+               file:rounded-full file:border-0
+               file:text-sm file:font-semibold
+               file:bg-blue-50 file:text-blue-700
+               hover:file:bg-blue-100"
+                            onChange={(e) => setImg(e.target.files[0])}
+                        />
+                    </div>
+                </DialogBody>
                 <DialogFooter>
                     <Button
                         variant="text"
@@ -39,10 +88,10 @@ export function AddPartneer() {
                         onClick={handleOpen}
                         className="mr-1"
                     >
-                        <span>Yopish</span>
+                        <span>Закрыть</span>
                     </Button>
-                    <Button variant="gradient" onClick={handleOpen}>
-                        <span>Tasdiqlash</span>
+                    <Button variant="gradient" onClick={handleSubmit}>
+                        <span>Подтверждение</span>
                     </Button>
                 </DialogFooter>
             </Dialog>

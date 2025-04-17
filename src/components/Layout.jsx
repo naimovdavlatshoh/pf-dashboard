@@ -13,11 +13,12 @@ import {
     StepBack,
     User,
 } from "lucide-react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const Layout = ({ children }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const currentUrl = useLocation().pathname;
+    const navigate = useNavigate();
 
     return (
         <div className="flex h-screen bg-white text-gray-800">
@@ -59,7 +60,7 @@ const Layout = ({ children }) => {
                             } flex items-center gap-2 hover:bg-white hover:text-black p-3 rounded-xl`}
                         >
                             <ChartBarStacked />
-                            {isSidebarOpen && <span>Kategoriyalar</span>}
+                            {isSidebarOpen && <span>Категории</span>}
                         </Link>
                         <Link
                             to="/products"
@@ -71,7 +72,7 @@ const Layout = ({ children }) => {
                             } flex items-center gap-2 hover:bg-white hover:text-black p-3 rounded-xl`}
                         >
                             <Barcode />
-                            {isSidebarOpen && <span>Mahsulotlar</span>}
+                            {isSidebarOpen && <span>Продукты</span>}
                         </Link>
                         <Link
                             to="/projects"
@@ -83,7 +84,7 @@ const Layout = ({ children }) => {
                             } flex items-center gap-2 hover:bg-white hover:text-black p-3 rounded-xl`}
                         >
                             <FolderKanban />
-                            {isSidebarOpen && <span>Loyihalar</span>}
+                            {isSidebarOpen && <span>Проекты</span>}
                         </Link>
                         <Link
                             to="/sertifications"
@@ -95,7 +96,7 @@ const Layout = ({ children }) => {
                             } flex items-center gap-2 hover:bg-white hover:text-black p-3 rounded-xl`}
                         >
                             <ShieldCheck />
-                            {isSidebarOpen && <span>Sertifikatlar</span>}
+                            {isSidebarOpen && <span>Сертификаты</span>}
                         </Link>
                         <Link
                             to="/partneers"
@@ -107,7 +108,7 @@ const Layout = ({ children }) => {
                             } flex items-center gap-2 hover:bg-white hover:text-black p-3 rounded-xl`}
                         >
                             <Handshake />
-                            {isSidebarOpen && <span>Hamkorlar</span>}
+                            {isSidebarOpen && <span>Партнеры</span>}
                         </Link>
                         <Link
                             to="/branches"
@@ -119,31 +120,21 @@ const Layout = ({ children }) => {
                             } flex items-center gap-2 hover:bg-white hover:text-black p-3 rounded-xl`}
                         >
                             <Split />
-                            {isSidebarOpen && <span>Fliallar</span>}
+                            {isSidebarOpen && <span>Флиалы</span>}
                         </Link>
                     </div>
                 </div>
                 <div className="p-4 flex flex-col gap-4">
-                    <Link
-                        to="/branches"
-                        variant="text"
-                        className={`${
-                            currentUrl == "/profile"
-                                ? "bg-white text-black"
-                                : ""
-                        } flex items-center gap-2 hover:bg-white hover:text-black p-3 rounded-xl`}
-                    >
-                        <User />
-                        {isSidebarOpen && <span>Profile</span>}
-                    </Link>
-                    <Link
-                        to="/branches"
+                    <button
+                        onClick={() => {
+                            navigate("/login"), localStorage.clear();
+                        }}
                         variant="text"
                         className={` flex items-center gap-2 hover:bg-white hover:text-black p-3 rounded-xl`}
                     >
                         <LogOut />
-                        {isSidebarOpen && <span>Logout</span>}
-                    </Link>
+                        {isSidebarOpen && <span>Выход из системы</span>}
+                    </button>
                 </div>
             </div>
 

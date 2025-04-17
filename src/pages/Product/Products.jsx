@@ -37,10 +37,10 @@ const Products = () => {
                             className="w-full h-40 object-cover rounded-xl"
                         />
                         <div>
-                            <h3 className="text-xl font-bold mb-3">
+                            <h3 className="text-xl font-bold mb-3  line-clamp-2  h-[70px] ">
                                 {product?.translations?.uz?.name}
                             </h3>
-                            <p className="text-gray-500  line-clamp-4 le4">
+                            <p className="text-gray-500  line-clamp-4 h-[100px]">
                                 {product?.translations?.uz?.description}
                             </p>
                         </div>

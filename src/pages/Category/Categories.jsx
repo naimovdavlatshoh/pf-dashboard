@@ -30,7 +30,7 @@ const Categories = () => {
                         key={category.id}
                         className="bg-white shadow-xl rounded-2xl p-6 border border-gray-200 space-y-2"
                     >
-                        <h3 className="text-xl font-bold">
+                        <h3 className="text-xl font-bold h-[80px] line-clamp-2">
                             {category?.translations?.ru.name}
                         </h3>
                         <p className="text-gray-500">{category.description}</p>

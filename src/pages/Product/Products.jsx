@@ -38,10 +38,10 @@ const Products = () => {
                         />
                         <div>
                             <h3 className="text-xl font-bold mb-3  line-clamp-2  h-[70px] ">
-                                {product?.translations?.uz?.name}
+                                {product?.translations?.ru?.name}
                             </h3>
                             <p className="text-gray-500  line-clamp-4 h-[100px]">
-                                {product?.translations?.uz?.description}
+                                {product?.translations?.ru?.description}
                             </p>
                         </div>
                         <div className="flex justify-between mt-4">

@@ -93,27 +93,42 @@ export function AddProduct({ changeStatus }) {
                         <Input
                             onChange={(e) => setNameru(e.target.value)}
                             label="Название продукта (ру)"
+                            defaultValue={
+                                "Модель: AWAL_250 т/час фильтры очистки воды"
+                            }
                         />
                         <Textarea
-                            defaultValue={descru}
+                            defaultValue={
+                                "Модель: Фильтры очистки воды AWAL_250 т/час. Фильтры обратного осмоса — это современные системы глубокой очистки воды, предназначенные для эффективного удаления примесей, солей, бактерий и тяжелых металлов. Они идеально подходят для фильтрации как подземных (скважинных) вод, так и водопроводной воды. Эти фильтры обеспечивают населения питьевой водой в рамках малого бизнеса и широко оборудуются на автомойках,на текстильных фабриках, а так же широко используется в теплицах для получения качественного урожая."
+                            }
                             label="Описание (ру)"
                             onChange={(e) => setDescru(e.target.value)}
                         ></Textarea>
                         <Input
+                            defaultValue={
+                                "Model : AWAL_250 t/soat suv tozalash filtrlari"
+                            }
                             onChange={(e) => setNameuz(e.target.value)}
                             label="Название продукта (uz)"
                         />
                         <Textarea
-                            defaultValue={descuz}
+                            defaultValue={
+                                "Model: AWAL_250 tonna/soat suvni tozalash filtrlari. Teskari osmos filtrlari – bu zamonaviy chuqur tozalash tizimlari bo‘lib, ular suvdan iflosliklar, tuzlar, bakteriyalar va og‘ir metallarni samarali tarzda chiqarib tashlash uchun mo‘ljallangan. Ular yer osti (quduq) suvlari hamda vodoprovod suvlari uchun juda mos keladi. Bu filtrlar aholini ichimlik suvi bilan ta’minlashda, kichik biznes doirasida keng qo‘llaniladi va avtomoykalar, to‘qimachilik fabrikalarida keng o‘rnatiladi, shuningdek, issiqxonalarda sifatli hosil olish uchun keng qo‘llaniladi."
+                            }
                             label="Описание (uz)"
                             onChange={(e) => setDescuz(e.target.value)}
                         ></Textarea>
                         <Input
+                            defaultValue={
+                                "Model : AWAL_250 t/h water purification filters"
+                            }
                             onChange={(e) => setNameen(e.target.value)}
                             label="Название продукта (en)"
                         />
                         <Textarea
-                            defaultValue={descen}
+                            defaultValue={
+                                "Model: Water purification filters AWAL_250 T/hour. Reverse osmosis filters are modern deep water purification systems designed to effectively remove impurities, salts, bacteria, and heavy metals. They are ideal for filtering both underground (well) water and tap water. These filters provide drinking water for the population within small businesses and are widely installed at car washes, textile factories, and are also commonly used in greenhouses to ensure a high-quality harvest."
+                            }
                             label="Описание (en)"
                             onChange={(e) => setDescen(e.target.value)}
                         ></Textarea>

@@ -13,7 +13,6 @@ import { PostDataToken } from "../..";
 
 export function AddPartneer({ changeStatus }) {
     const [open, setOpen] = React.useState(false);
-    const [name, setName] = useState("");
     const [img, setImg] = useState(null);
 
     const handleOpen = () => setOpen(!open);
@@ -23,7 +22,7 @@ export function AddPartneer({ changeStatus }) {
 
         formData.append("image", img);
         formData.append("name", "partneer");
-        if (!name || !img) {
+        if (!img) {
             handleOpen();
             toast.error("Заполните все поля.");
         } else {

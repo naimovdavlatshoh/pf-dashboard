@@ -13,7 +13,7 @@ import { PostDataToken } from "../..";
 
 export function AddSertification({ changeStatus }) {
     const [open, setOpen] = React.useState(false);
-    const [name, setName] = useState("");
+
     const [img, setImg] = useState(null);
 
     const handleOpen = () => setOpen(!open);
@@ -23,7 +23,7 @@ export function AddSertification({ changeStatus }) {
 
         formData.append("image", img);
         formData.append("name", "certificate");
-        if (!name || !img) {
+        if (!img) {
             handleOpen();
             toast.error("Заполните все поля.");
         } else {
